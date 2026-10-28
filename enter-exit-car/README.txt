@@ -4,7 +4,7 @@ Walk up to a car, press E to get in and E again to get out. When you get out it 
 
 The car can't be driven.
 
-Open the folder in Godot 4.7 and press F5. WASD to walk, mouse to look, E to get in and out. Esc frees the mouse, click to grab it again.
+Open the folder in Godot 4.7 and press F5. WASD to walk, mouse to look, E to get in and out.
 
 Where things are:
 common/car is the car. All the getting in and out happens in car.gd
