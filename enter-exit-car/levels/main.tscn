@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://c8we8nkbk5rw4"]
+
+[ext_resource type="PackedScene" uid="uid://c0dlrq1pwocsq" path="res://common/car/car.tscn" id="1_xrb17"]
+[ext_resource type="PackedScene" uid="uid://db4xmke6c5xda" path="res://common/player/player.tscn" id="2_cgv9c"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wdj6m"]
+sky_top_color = Color(0.38, 0.45, 0.55, 1)
+sky_horizon_color = Color(0.64, 0.66, 0.68, 1)
+ground_bottom_color = Color(0.2, 0.2, 0.21, 1)
+ground_horizon_color = Color(0.64, 0.66, 0.68, 1)
+
+[sub_resource type="Sky" id="Sky_l8qe7"]
+sky_material = SubResource("ProceduralSkyMaterial_wdj6m")
+
+[sub_resource type="Environment" id="Environment_m1504"]
+background_mode = 2
+sky = SubResource("Sky_l8qe7")
+tonemap_mode = 4
+ssao_enabled = true
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ifaiv"]
+size = Vector3(40, 1, 40)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5k4jt"]
+albedo_color = Color(0.42, 0.43, 0.45, 1)
+roughness = 0.9
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qy63d"]
+material = SubResource("StandardMaterial3D_5k4jt")
+size = Vector2(40, 40)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6et1j"]
+size = Vector3(0.3, 2.5, 7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_etqu2"]
+albedo_color = Color(0.55, 0.56, 0.58, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jw1n3"]
+material = SubResource("StandardMaterial3D_etqu2")
+size = Vector3(0.3, 2.5, 7)
+
+[node name="Main" type="Node3D" unique_id=1335789091]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=580052870]
+environment = SubResource("Environment_m1504")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1136678424]
+transform = Transform3D(0.866025, 0, -0.5, -0.383022, 0.642788, -0.663414, 0.321394, 0.766044, 0.55667, 0, 6, 0)
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=1160509967]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=957829042]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_ifaiv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1630577400]
+mesh = SubResource("PlaneMesh_qy63d")
+
+[node name="Car" parent="." unique_id=1814812472 instance=ExtResource("1_xrb17")]
+
+[node name="ParkedCar" parent="." unique_id=811070309 instance=ExtResource("1_xrb17")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+
+[node name="Wall" type="StaticBody3D" parent="." unique_id=1075944108]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.65, 1.25, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall" unique_id=920546426]
+shape = SubResource("BoxShape3D_6et1j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall" unique_id=345512717]
+mesh = SubResource("BoxMesh_jw1n3")
+
+[node name="Player" parent="." unique_id=2053144232 instance=ExtResource("2_cgv9c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 9.5)

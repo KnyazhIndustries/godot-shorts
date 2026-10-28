@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://db4xmke6c5xda"]
+
+[ext_resource type="Script" uid="uid://bt3x71mje7uva" path="res://common/player/player.gd" id="1_y3dbi"]
+[ext_resource type="Script" uid="uid://dy2a5mpg2jcbs" path="res://common/interaction/interactor.gd" id="2_wxbws"]
+[ext_resource type="PackedScene" uid="uid://bq8x3c827afmx" path="res://ui/hud.tscn" id="3_iqtuj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f6svf"]
+radius = 0.35
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ujhar"]
+albedo_color = Color(0.86, 0.86, 0.86, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_40njg"]
+material = SubResource("StandardMaterial3D_ujhar")
+radius = 0.35
+height = 1.8
+
+[node name="Player" type="CharacterBody3D" unique_id=1340185555]
+script = ExtResource("1_y3dbi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1187818315]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_f6svf")
+
+[node name="Body" type="MeshInstance3D" parent="." unique_id=1296682502]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("CapsuleMesh_40njg")
+
+[node name="Player Camera" type="Camera3D" parent="." unique_id=1111584843]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+current = true
+
+[node name="Player Interactor" type="RayCast3D" parent="Player Camera" unique_id=1009775115]
+unique_name_in_owner = true
+target_position = Vector3(0, 0, -2.5)
+script = ExtResource("2_wxbws")
+
+[node name="HUD" parent="." unique_id=1676060533 instance=ExtResource("3_iqtuj")]
+unique_name_in_owner = true
